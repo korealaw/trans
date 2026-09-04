@@ -19,10 +19,10 @@ jobs:
         run: |
           set -euo pipefail
           test -f .payload/READY
-          cat .payload/app.part* > app_payload.b64
-          base64 -d app_payload.b64 > app_payload.tar.gz
-          tar -xzf app_payload.tar.gz
-          rm -f app_payload.b64 app_payload.tar.gz
+          cat .payload/xz.part* > app_payload.b64
+          base64 -d app_payload.b64 > app_payload.tar.xz
+          tar -xJf app_payload.tar.xz
+          rm -f app_payload.b64 app_payload.tar.xz
           rm -rf .payload
           for f in 01_PHONE.html 02_PERSONAL_PC.html 03_INTRANET_PC.html; do
             test -s "$f"
