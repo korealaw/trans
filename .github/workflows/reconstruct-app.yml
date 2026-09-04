@@ -19,7 +19,14 @@ jobs:
         run: |
           set -euo pipefail
           test -f .payload/READY
-          cat .payload/xz.part* > app_payload.b64
+          : > app_payload.b64
+          for i in $(seq -f "%03g" 0 28); do
+            test -f ".payload/xz.part${i}"
+            head -c 12000 ".payload/xz.part${i}" >> app_payload.b64
+          done
+          test -f .payload/xz.part029
+          head -c 10560 .payload/xz.part029 >> app_payload.b64
+          test "$(wc -c < app_payload.b64)" -eq 358560
           base64 -d app_payload.b64 > app_payload.tar.xz
           tar -xJf app_payload.tar.xz
           rm -f app_payload.b64 app_payload.tar.xz
