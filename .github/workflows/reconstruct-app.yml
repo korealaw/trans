@@ -21,11 +21,23 @@ jobs:
           test -f .payload/READY
           : > app_payload.b64
           for i in $(seq -f "%03g" 0 28); do
-            test -f ".payload/xz.part${i}"
-            head -c 12000 ".payload/xz.part${i}" >> app_payload.b64
+            if test -f ".payload/xz.part${i}"; then
+              head -c 12000 ".payload/xz.part${i}" >> app_payload.b64
+            else
+              test -f ".payload/xz.part${i}a"
+              test -f ".payload/xz.part${i}b"
+              head -c 6000 ".payload/xz.part${i}a" >> app_payload.b64
+              head -c 6000 ".payload/xz.part${i}b" >> app_payload.b64
+            fi
           done
-          test -f .payload/xz.part029
-          head -c 10560 .payload/xz.part029 >> app_payload.b64
+          if test -f .payload/xz.part029; then
+            head -c 10560 .payload/xz.part029 >> app_payload.b64
+          else
+            test -f .payload/xz.part029a
+            test -f .payload/xz.part029b
+            head -c 5280 .payload/xz.part029a >> app_payload.b64
+            head -c 5280 .payload/xz.part029b >> app_payload.b64
+          fi
           test "$(wc -c < app_payload.b64)" -eq 358560
           base64 -d app_payload.b64 > app_payload.tar.xz
           tar -xJf app_payload.tar.xz
