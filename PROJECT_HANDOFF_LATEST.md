@@ -1,41 +1,32 @@
 # PROJECT_HANDOFF_LATEST
 
 ## 프로젝트
-- 새마을금고 전환직 학습 웹앱
+- 제품명: **새마을금고 학습**
 - GitHub: `korealaw/trans`
-- 현재 후보: RC4 v0.10
-- 운영 원본: GitHub `main`
+- 기준 버전: RC4 v0.11
+- 운영 기준: GitHub `main` + 이 인계문서
 
-## RC4 구조
-- 하나의 검증된 240문항 Master DB에 **Quick / Focus / Exam** 3개 학습경로를 병렬 구성
-- Quick: 5문항 즉시 회상, 취약문항 우선, 정답 후 STEP 1만 기본 노출, 이유/공식근거는 선택 펼침
-- Focus: 기존 Daily·Concept·단계해설·보기별 판정·공식근거·마인드맵 유지
-- Exam: 20문항 실전 모의고사 유지
-- 하단 메뉴: 홈 / 학습 / 모의고사 / 기록
-- 첫 화면의 세부 통계·분량·지도·백업은 내부 화면으로 이동
+## 영구 제약
+- 모든 사용자 화면·문서에서 제품명은 `새마을금고 학습`으로 통일합니다.
+- 5분 빠른학습과 집중학습은 문항 ID 기준으로 완전히 분리합니다.
+  - Quick: 52문항
+  - Focus: 188문항
+  - 교집합: 0
+- INTRANET PC는 모든 UI 색상을 회색조로만 사용합니다. 이후 추가 UI도 동일합니다.
+- 공개 저장소에는 공식 원자료 PDF를 올리지 않습니다.
 
-## 데이터·기록 원칙
-- 240문항 / Concept 48 / 활성 Daily 50 / 모의고사 20
-- 별도 초급/중급 문제은행을 만들지 않음
-- Quick 정오답은 기존 `questionStats`에 공유
-- Daily 완료 판정은 Focus에 유지하여 빠르게 본 것과 집중학습 완료를 구분
-- 기존 courseId와 localStorage KEY를 유지하여 RC3 v0.9.1 학습기록과 호환
-- 전문 직함의 무관한 distractor 사용 금지
-- `감사위원장`은 중앙회 직접 학습 문항(QRC2-176)에서만 유지
-
-## UI 원칙
-- PHONE / PERSONAL PC / INTRANET PC 3종
-- PHONE은 모바일 우선, 한 화면 한 행동
-- INTRANET PC는 외부 의존성 없이 중립 회색 업무형 UI 유지
+## 현재 학습 구조
+- Quick: 전용 문항 5개씩 즉시 회상, 짧은 해설, 필요 시 근거 펼침
+- Focus: Quick에서 제외된 문항으로 Daily·단계해설·공식근거·마인드맵 학습
+- Exam: 20문항 제출 후 순차 해설
+- 기록: localStorage 유지, 기존 진행기록 호환
 
 ## 다음 작업
-1. RC4 실제기기 Quick / Focus / Exam 흐름 확인
-2. PHONE 첫 화면 정보량·터치영역 확인
-3. INTRANET 회색 업무형 UI 확인
-4. 최신 3종 HTML을 `korealaw/trans/main`에 반영 후 Pages 검증
+1. PHONE 실제 화면에서 Quick → 관련 Focus 이동 확인
+2. Focus Daily 완료조건이 Focus 전용문항 기준으로 정상 작동하는지 확인
+3. INTRANET 실제 PC에서 회색조와 오프라인 실행 확인
+4. 이상 없으면 `korealaw/trans/main`의 앱 본체를 RC4 v0.11로 교체
 
 ## 인계 정책
-- 매 작업마다 원자료 포함 대형 HANDOFF ZIP을 새로 만들지 않는다.
-- 이 파일과 GitHub `main`을 기본 인계수단으로 사용한다.
-- 전체 ZIP은 공식 릴리스/대규모 구조변경/별도 백업이 필요할 때만 만든다.
-- 원자료 PDF는 공개 저장소에 올리지 않는다.
+- 매 작업마다 원자료 포함 대형 ZIP을 재생성하지 않습니다.
+- 전체 백업 ZIP은 공식 릴리스, 대규모 구조변경 또는 별도 백업이 필요할 때만 만듭니다.
