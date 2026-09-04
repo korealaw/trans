@@ -3,21 +3,36 @@
 ## 프로젝트
 - 새마을금고 전환직 학습 웹앱
 - GitHub: `korealaw/trans`
-- 기준: RC3 v0.9.1
+- 현재 후보: RC4 v0.10
 - 운영 원본: GitHub `main`
 
-## 현재 상태
-- 문제 240 / Concept 48 / 활성 Daily 50 / 모의고사 20
-- PHONE / PERSONAL PC / INTRANET PC
-- 조문번호 암기형 발문/보기 최소화 원칙 적용
+## RC4 구조
+- 하나의 검증된 240문항 Master DB에 **Quick / Focus / Exam** 3개 학습경로를 병렬 구성
+- Quick: 5문항 즉시 회상, 취약문항 우선, 정답 후 STEP 1만 기본 노출, 이유/공식근거는 선택 펼침
+- Focus: 기존 Daily·Concept·단계해설·보기별 판정·공식근거·마인드맵 유지
+- Exam: 20문항 실전 모의고사 유지
+- 하단 메뉴: 홈 / 학습 / 모의고사 / 기록
+- 첫 화면의 세부 통계·분량·지도·백업은 내부 화면으로 이동
+
+## 데이터·기록 원칙
+- 240문항 / Concept 48 / 활성 Daily 50 / 모의고사 20
+- 별도 초급/중급 문제은행을 만들지 않음
+- Quick 정오답은 기존 `questionStats`에 공유
+- Daily 완료 판정은 Focus에 유지하여 빠르게 본 것과 집중학습 완료를 구분
+- 기존 courseId와 localStorage KEY를 유지하여 RC3 v0.9.1 학습기록과 호환
 - 전문 직함의 무관한 distractor 사용 금지
 - `감사위원장`은 중앙회 직접 학습 문항(QRC2-176)에서만 유지
-- INTRANET PC의 메신저형 UI 제거, 중립 업무형 UI 적용
+
+## UI 원칙
+- PHONE / PERSONAL PC / INTRANET PC 3종
+- PHONE은 모바일 우선, 한 화면 한 행동
+- INTRANET PC는 외부 의존성 없이 중립 회색 업무형 UI 유지
 
 ## 다음 작업
-1. GitHub Pages 또는 실제 배포 URL에서 PHONE/PC 화면 확인
-2. 실제 사내 PC에서 `03_INTRANET_PC.html` 오프라인 실행 확인
-3. 사용 중 발견되는 문항 용어/근거 오류는 문제 ID 기준으로 원자료와 재검증
+1. RC4 실제기기 Quick / Focus / Exam 흐름 확인
+2. PHONE 첫 화면 정보량·터치영역 확인
+3. INTRANET 회색 업무형 UI 확인
+4. 최신 3종 HTML을 `korealaw/trans/main`에 반영 후 Pages 검증
 
 ## 인계 정책
 - 매 작업마다 원자료 포함 대형 HANDOFF ZIP을 새로 만들지 않는다.
