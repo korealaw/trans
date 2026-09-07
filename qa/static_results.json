@@ -1,0 +1,90 @@
+{
+  "result": "PASS",
+  "files": [
+    {
+      "file": "01_PHONE.html",
+      "git_blob_sha": "af6231bd4634b23fa03414631b5c4d7fbeff1cbe",
+      "bytes": 470181,
+      "syntax": "PASS",
+      "duplicate_functions": 0,
+      "active_csv_match": 260,
+      "external_runtime_network_calls": 0
+    },
+    {
+      "file": "02_PERSONAL_PC.html",
+      "git_blob_sha": "45c4e3c64677bc4cf730104188d734c4ae64e5ce",
+      "bytes": 463129,
+      "syntax": "PASS",
+      "duplicate_functions": 0,
+      "active_csv_match": 260,
+      "external_runtime_network_calls": 0
+    },
+    {
+      "file": "03_INTRANET_PC.html",
+      "git_blob_sha": "006475fdb8406afb7a9e9ae4510cea9f060e4f38",
+      "bytes": 793642,
+      "syntax": "PASS",
+      "duplicate_functions": 0,
+      "active_csv_match": 260,
+      "external_runtime_network_calls": 0
+    }
+  ],
+  "active": 260,
+  "quick": 52,
+  "focus": 208,
+  "master_including_reserve": 300,
+  "reserve_subset": 40,
+  "concepts": 58,
+  "single_question_concepts": [
+    "ACC-01",
+    "ACC-07",
+    "ACC-08",
+    "ACC-12",
+    "BUS-02",
+    "BUS-05",
+    "CEN-04",
+    "EXIT-02",
+    "FND-03",
+    "GOV-04",
+    "INV-03",
+    "EXIT-01",
+    "EXIT-03"
+  ],
+  "focus_only_concepts": [
+    "ACC-01",
+    "ACC-07",
+    "ACC-08",
+    "ACC-12",
+    "BUS-02",
+    "BUS-05",
+    "CEN-04",
+    "EXIT-02",
+    "FND-03",
+    "GOV-04",
+    "INV-03",
+    "FND-01",
+    "GOV-02",
+    "HR-02",
+    "EXIT-01",
+    "EXIT-03",
+    "PRU-03",
+    "ACC-03",
+    "ACC-05",
+    "ACC-10",
+    "ACC-11"
+  ],
+  "focus_daily_counts": {
+    "D01": 40,
+    "D02": 38,
+    "D03": 42,
+    "D04": 42,
+    "D05": 46
+  },
+  "answer_distribution_master": {
+    "1": 76,
+    "2": 76,
+    "3": 74,
+    "4": 74
+  },
+  "legal_currency": "NOT_REVALIDATED; data alignment is not substantive legal validation"
+}
