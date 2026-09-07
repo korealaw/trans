@@ -18,6 +18,18 @@
 - 실제기기 점검: `C23_DEVICE_SELFTEST.html`
 - 최종 QA: `RC4_V023_FINAL_QA.md`
 
+
+## GitHub 배포 현황 — 2026-09-08
+- RC4 v0.23 앱 본체 3개를 GitHub `main`에 업로드 완료.
+- 문제 DB `MG_MASTER_QUESTION_DB_300.csv`, `MG_RESERVE_40.csv` 업로드 완료.
+- 원본 대비 파일 크기와 Git blob SHA 일치 확인 완료.
+- 실패한 임시 `.payload` 디렉터리 제거 완료.
+- 배포 커밋: `128457c3be8b3391a9bce7754423257d2bebe6f8`.
+- `index.html`의 PHONE / PERSONAL PC / INTRANET PC / C23 링크는 정상.
+- 현재 유일한 배포 차단점: GitHub Pages가 아직 활성화되지 않아 공개 URL이 404 `Site not found` 상태.
+- 다음 작업: 저장소 Settings → Pages → Deploy from a branch → `main` / `(root)` → Save. 완료 후 공개 URL 4종을 실검증한다.
+- 이 배포 현황은 아래의 “앱 본체 존재 여부” 분기보다 우선한다.
+
 ## 절대 유지 정책
 1. 제품명은 **새마을금고 학습**만 사용한다.
 2. 이전 프로젝트명/시험 직군명은 앱 화면·문서·배포물에 다시 쓰지 않는다.
