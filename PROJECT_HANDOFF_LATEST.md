@@ -5,9 +5,10 @@
 
 ### 새 채팅의 첫 행동
 1. GitHub `korealaw/trans`의 `PROJECT_HANDOFF_LATEST.md`와 `README.md`를 먼저 읽는다.
-2. 이 문서를 현재 작업의 기준으로 삼는다.
-3. 사용자에게 프로젝트 설명을 다시 요구하지 않는다.
-4. 이미 확정된 정책을 재논의하지 말고 아래 **다음 작업**부터 진행한다.
+2. `RC4_V023_FINAL_QA.md`를 함께 확인한다.
+3. 이 문서를 현재 작업의 기준으로 삼는다.
+4. 사용자에게 프로젝트 설명을 다시 요구하지 않는다.
+5. 이미 확정된 정책을 재논의하지 말고 아래 **다음 작업**부터 진행한다.
 
 ## 현재 프로젝트 기준
 - 제품명: **새마을금고 학습**
@@ -18,17 +19,30 @@
 - 실제기기 점검: `C23_DEVICE_SELFTEST.html`
 - 최종 QA: `RC4_V023_FINAL_QA.md`
 
-
 ## GitHub 배포 현황 — 2026-09-08
 - RC4 v0.23 앱 본체 3개를 GitHub `main`에 업로드 완료.
 - 문제 DB `MG_MASTER_QUESTION_DB_300.csv`, `MG_RESERVE_40.csv` 업로드 완료.
-- 원본 대비 파일 크기와 Git blob SHA 일치 확인 완료.
+- 로컬 `trans-main.zip`과 GitHub 핵심 파일의 size + Git blob SHA 일치 재확인 완료.
 - 실패한 임시 `.payload` 디렉터리 제거 완료.
-- 배포 커밋: `128457c3be8b3391a9bce7754423257d2bebe6f8`.
-- `index.html`의 PHONE / PERSONAL PC / INTRANET PC / C23 링크는 정상.
-- 현재 유일한 배포 차단점: GitHub Pages가 아직 활성화되지 않아 공개 URL이 404 `Site not found` 상태.
-- 다음 작업: 저장소 Settings → Pages → Deploy from a branch → `main` / `(root)` → Save. 완료 후 공개 URL 4종을 실검증한다.
-- 이 배포 현황은 아래의 “앱 본체 존재 여부” 분기보다 우선한다.
+- 앱/DB 배포 커밋: `128457c3be8b3391a9bce7754423257d2bebe6f8`.
+- `index.html`의 PHONE / PERSONAL PC / INTRANET PC / C23 링크 정상.
+- 3종 HTML JavaScript 정적 구문검사 PASS.
+- INTRANET 외부 URL/CDN/fetch/service worker 의존성 정적 검색 0건.
+- GitHub Pages 정적 배포 준비용 `.nojekyll` 추가 완료.
+- `RC4_V023_FINAL_QA.md` 생성 완료.
+- 저장소 메타데이터 기준 현재 `has_pages=false`.
+- 현재 ChatGPT GitHub 연결 권한은 `push=true`, `admin=false`이므로 파일 수정은 가능하지만 Pages 설정 활성화는 수행할 수 없다.
+- 현재 확인된 유일한 공개 배포 차단점: **GitHub Pages 미활성화**.
+
+## 사용자가 GitHub 웹에서 1회 수행할 작업
+`korealaw/trans` → `Settings` → `Pages` → `Build and deployment` → `Source: Deploy from a branch` → `Branch: main` → `Folder: /(root)` → `Save`
+
+Pages가 켜진 뒤 바로 아래 공개 경로를 실검증한다.
+- `/trans/`
+- `/trans/01_PHONE.html`
+- `/trans/02_PERSONAL_PC.html`
+- `/trans/03_INTRANET_PC.html`
+- `/trans/C23_DEVICE_SELFTEST.html`
 
 ## 절대 유지 정책
 1. 제품명은 **새마을금고 학습**만 사용한다.
@@ -84,35 +98,28 @@
 - INTRANET 외부 URL/CDN/API: 0
 
 ## 아직 남은 실제 배포 게이트
-1. 실제 Galaxy에서 `C23_DEVICE_SELFTEST.html` 최종 1회 확인.
-2. 실제 사내 PC에서 INTRANET 최종 1회 확인.
-3. 통과 후 GitHub `main` 루트에 앱 본체 3개를 올린다.
-4. 업로드 후 GitHub `size` + blob SHA를 로컬 원본과 대조한다.
-5. GitHub의 임시 `.payload`가 남아 있으면 제거한다.
-6. Pages가 실제로 `index.html → 01_PHONE.html / 02_PERSONAL_PC.html / 03_INTRANET_PC.html`을 정상 연결하는지 확인한다.
-7. 최종 Pages URL을 실제 모바일에서 열어 마지막 점검 후 배포 확정한다.
+1. GitHub Pages를 `main` / `/(root)`로 활성화.
+2. Pages 공개 URL 5종 실검증.
+3. 실제 Galaxy에서 `C23_DEVICE_SELFTEST.html` 최종 1회 확인.
+4. 실제 사내 PC에서 `03_INTRANET_PC.html` 오프라인 실행 최종 1회 확인.
+5. 실제기기 통과 후 RC4 v0.23 배포 확정.
 
 ## 새 채팅에서 `다음 작업 진행` 입력 시 바로 할 일
 사용자가 별도 오류 스크린샷이나 새 요구를 함께 주지 않았다면:
 
 ### A. GitHub 상태부터 읽는다
 - `PROJECT_HANDOFF_LATEST.md`
-- `README.md`
-- 루트 파일 목록
-- `01_PHONE.html`, `02_PERSONAL_PC.html`, `03_INTRANET_PC.html` 존재 여부
-- `.payload` 존재 여부
+- `RC4_V023_FINAL_QA.md`
+- 저장소 메타데이터의 `has_pages`
 
-### B. 앱 본체 3개가 아직 GitHub에 없다면
-- 사용자에게 프로젝트를 다시 설명시키지 않는다.
-- RC4 v0.23을 기준으로 배포 준비 상태를 유지한다.
-- 가능한 범위에서 GitHub 정리와 배포 전 검증을 진행한다.
-- 대용량 파일 전송이 커넥터 한계로 막힐 때만 정확히 그 제한을 설명한다.
+### B. `has_pages=false`라면
+- 다른 코드 수정부터 하지 않는다.
+- 사용자에게 GitHub 웹에서 Pages를 켜는 정확한 클릭 경로를 제시한다.
+- Pages 활성화가 확인될 때까지 배포 장애를 코드 오류로 오인하지 않는다.
 
-### C. 앱 본체 3개가 GitHub에 있다면
-- size / blob SHA 무결성 검사
-- index 링크 검사
-- Pages 실URL 검사
-- 배포 확정 단계로 진행한다.
+### C. `has_pages=true`라면
+- Pages 공개 URL 5종 실검증
+- Galaxy / 사내 PC 최종기기 점검으로 진행한다.
 
 ## 문제 콘텐츠 후속 과제 — 배포 후 v0.24 후보
 - 단일문항 Concept 13개에 공식자료 대조 후 대체문항을 각 1개 이상 추가.
