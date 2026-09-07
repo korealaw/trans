@@ -1,0 +1,44 @@
+name: Rebuild tested RC4 v0.24
+on:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/rebuild-v024.yml']
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: rebuild-v024
+  cancel-in-progress: false
+jobs:
+  rebuild:
+    if: github.repository == 'korealaw/trans' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: main
+          fetch-depth: 1
+      - name: Build only from hash-verified baseline
+        shell: bash
+        run: |
+          set -euo pipefail
+          if python3 qa/verify_release.py > /tmp/v024-precheck.log 2>&1; then
+            echo 'Exact tested release already present.'
+          else
+            python3 maintenance/apply_v024.py
+          fi
+          python3 qa/verify_release.py
+      - name: Commit only verified app files and verification record
+        shell: bash
+        run: |
+          set -euo pipefail
+          git add -- 01_PHONE.html 02_PERSONAL_PC.html 03_INTRANET_PC.html qa/static_results.json
+          if git diff --cached --quiet; then
+            echo 'No changes needed.'
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'Release RC4 v0.24: verified learning and storage fixes'
+          git push origin HEAD:main
