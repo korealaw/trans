@@ -17,7 +17,7 @@ function normalizeState(input){
     const oldQueue=Array.isArray(x.queue)?x.queue:[],oldIndex=integer(x.index,0,oldQueue.length),queue=[],counts={};let index=0;
     if(s.dailySchemaVersion===DAILY_SCHEMA_VERSION&&s.flowSchemaVersion===FLOW_SCHEMA_VERSION){oldQueue.slice(0,1000).forEach((item,i)=>{if(!isRecord(item)||!ids.has(item.qid)||(counts[item.qid]||0)>=2)return;counts[item.qid]=(counts[item.qid]||0)+1;queue.push({qid:item.qid,isReview:item.isReview===true,repeat:item.repeat===true||counts[item.qid]>1,recovery:item.recovery===true});if(i<oldIndex)index++;});}
     const sessionDone=x.sessionDone===true||index>=queue.length;
-    const pick=validPick(x.pick)?x.pick:null,answered=!sessionDone&&x.answered===true&&pick!==null;
+    const pick=validPick(x.pick)?x.pick:null,answered=!sessionDone&&x.answered===true&&pick!==null&&queue[index]?.qid===oldQueue[oldIndex]?.qid;
     const repeats={};for(const item of queue)if(item.repeat)repeats[item.qid]=1;
     next.daily[d.id]={done,completed:ids.size>0&&done.length===ids.size,queue,index,sessionDone,answered,pick:answered?pick:null,baseCount:queue.filter(item=>!item.isReview).length,repeats,startCoverage:integer(x.startCoverage,0,100),endCoverage:integer(x.endCoverage,0,100)};
   }
@@ -37,7 +37,7 @@ function normalizeState(input){
   const gate=isRecord(s.focusGate)?s.focusGate:{};
   next.focusGate={ready:gate.ready===true&&next.quick?.done===true,pendingDailyId:dailyIds.has(gate.pendingDailyId)?gate.pendingDailyId:null,completedAt:typeof gate.completedAt==='string'?gate.completedAt.slice(0,40):null};
   const run=isRecord(s.focusRun)?s.focusRun:null;
-  if(oldFlow&&run){const target=integer(run.target,1,FOCUS_TOTAL,DEFAULT_FOCUS_COUNT);next.focusRun={active:run.active===true,target,done:integer(run.done,0,target),mode:run.mode==='review'?'review':'learn',completedQids:uniqueIds(run.completedQids,allowed),startedAt:typeof run.startedAt==='string'?run.startedAt.slice(0,40):null,completedAt:typeof run.completedAt==='string'?run.completedAt.slice(0,40):null,startDailyId:dailyIds.has(run.startDailyId)?run.startDailyId:null};if(next.focusRun.done>=target)next.focusRun.active=false;}
+  if(oldFlow&&run){const target=integer(run.target,1,FOCUS_TOTAL,DEFAULT_FOCUS_COUNT);next.focusRun={active:run.active===true,target,done:integer(run.done,0,target),mode:run.mode==='review'?'review':'learn',completedQids:uniqueIds(run.completedQids,allowed),startedAt:typeof run.startedAt==='string'?run.startedAt.slice(0,40):null,completedAt:typeof run.completedAt==='string'?run.completedAt.slice(0,40):null,startDailyId:dailyIds.has(run.startDailyId)?run.startDailyId:null};if(next.focusRun.done>=target&&!Object.values(next.daily).some(ds=>ds.queue.length&&!ds.sessionDone&&ds.index<ds.queue.length))next.focusRun.active=false;}
   const m=isRecord(s.mock)?s.mock:null;
   if(oldFlow&&m&&(!m.questionIds||(Array.isArray(m.questionIds)&&m.questionIds.join('|')===MOCK.map(q=>q.id).join('|')))){
     const answers=MOCK.map((q,i)=>Array.isArray(m.answers)&&validPick(m.answers[i])?m.answers[i]:null),submitted=m.submitted===true&&answers.every(validPick);
