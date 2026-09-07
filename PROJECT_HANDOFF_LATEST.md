@@ -2,47 +2,57 @@
 
 ## 프로젝트
 - 제품명: **새마을금고 학습**
-- 기준 후보: **RC4 v0.21 RELEASE CANDIDATE**
-- GitHub: `korealaw/trans`
+- 기준 후보: **RC4 v0.23 INTEGRITY UPDATE**
+- 저장소: `korealaw/trans`
 
 ## 절대 유지 정책
-1. 제품명은 `새마을금고 학습`으로만 표기한다.
-2. 집중학습 전에 **5분 문제 10문항을 반드시 완료**한다.
-3. 기본 집중학습 목표는 **40문항**이다.
-4. 집중학습 Daily는 5개, 각 약 40문항 규모를 유지한다.
-5. PHONE은 카카오톡 계열 UI를 유지한다.
-6. INTRANET은 전면 회색조이며 사내 업무프로그램 수준의 작은 글꼴·사각형 버튼·얇은 경계선을 유지한다.
-7. INTRANET은 홈/학습/모의고사/기록을 항상 사용할 수 있어야 한다.
-8. INTRANET은 `.main` 단일 스크롤 구조를 유지한다.
-9. 공식 원자료 PDF는 공개 GitHub에 올리지 않는다.
-10. 별도 마인드맵 기능은 다시 추가하지 않는다.
+1. 제품명은 `새마을금고 학습`만 사용한다.
+2. 1단계 5분 문제 10문항을 완료해야 2단계 집중학습으로 들어간다.
+3. 집중학습 기본 목표는 40문항, Daily는 5개 약 40문항 단위다.
+4. PHONE은 카카오톡 계열 시각언어 + 단순한 모바일 정보구조를 유지한다.
+5. INTRANET은 전면 회색조, 업무형 작은 폰트, 단일 `.main` 스크롤, 외부 의존성 0을 유지한다.
+6. Quick/Focus 문제군은 겹치지 않는다.
+7. 오답 회복은 개념 단위이며 같은 문항보다 같은 개념의 다른 문항을 우선한다.
+8. 단일문항 개념 또는 동일 원문항 재정답만으로 MASTERED 처리하지 않는다.
+9. 각 JavaScript 함수는 **한 번만 정의**한다. 레이어드 override 방식으로 같은 함수명을 뒤에 추가하지 않는다.
+10. 공개 GitHub에는 공식 원자료 PDF를 올리지 않는다.
 
-## 오답 회복 정책
-- 오답은 문제번호보다 **취약 개념 단위**로 누적한다.
-- 다음 학습일의 1단계 10문항에 회복개념을 최대 6개 우선 배치한다.
-- 같은 개념의 다른 문항을 원문항보다 우선한다.
-- 대체문항이 없을 때만 동일 문항 재사용을 허용한다.
-- 2회 회복 확인 시 안정화 처리한다.
-- 모의고사 오답도 동일 reviewBank에 반영한다.
+## v0.23 데이터
+- ACTIVE 260 / Master 300 / Reserve 40
+- Quick 52 / Focus 208
+- Daily 5 / Concepts 58
+- Mock 20: Focus-only, Quick overlap 0, 11개 영역, 20개 개념
+- FLOW_SCHEMA_VERSION=23
 
-## 데이터
-- ACTIVE 260
-- Master DB 300
-- Quick 전용 52
-- Focus 전용 208
-- Daily 5
-- Mock 20
-- Concepts 58
+## 보기 순서 규칙
+원본/CSV에서 정답위치가 기계적으로 순환하지 않도록 **빌드 시점에 결정론적으로 재배열**한다.
 
-## v0.21 최종 QA
-- 3종 앱 Chromium E2E: PASS
-- Quick 10문항: PASS
-- Focus 40문항: PASS
-- 오답 reviewBank: PASS
-- concept variant 재출제: PASS
-- INTRANET nav 4개: PASS
-- INTRANET scroll: PASS
-- runtime pageerror: 0
+1. CSV `answer`는 1-based, 앱 JSON `answer`는 0-based다.
+2. 문항 ID의 FNV-1a 32-bit hash를 이용한다.
+3. `qid + '|ans'` hash mod 4로 정답 표시 위치를 결정한다.
+4. 나머지 3개 오답은 `qid + '|dist'` seed로 결정론적 Fisher-Yates를 적용한다.
+5. `options`와 `optionReasons`를 같은 순서로 이동한다.
+6. 동일 문항은 버전 내에서 항상 같은 순서를 유지한다.
+7. 보기 순서를 바꾸는 버전은 FLOW_SCHEMA_VERSION을 올리고 진행 중 pick/mock transient state를 초기화한다.
 
-## 다음 단계
-실제 사용자 기기에서 1회 시범운영 후 GitHub `main` 앱 본체 3종을 RC4 v0.21로 교체하고 Pages 실URL을 최종 확인한다.
+## Mock 선발 규칙
+- Focus 전용 문제만 사용한다.
+- Quick ID와 교집합은 0이어야 한다.
+- 활성 Concept의 전체 영역을 최소 1문항씩 포함한다.
+- 가능하면 Concept 중복 없이 선발한다.
+- 현 v0.23: 20문항 / 11영역 / 20개념.
+
+## 콘텐츠 후속 과제
+단일문항 개념 13개에는 대체문항을 각 1개 이상 공식자료와 대조해 추가한다. 그 전까지 엔진이 허위 MASTERED 승격을 차단한다.
+
+## 빌드/QA 절차
+1. `question_db/MG_MASTER_QUESTION_DB_300.csv`를 canonical DB로 관리한다.
+2. active 260을 앱 JSON으로 생성할 때 answer 1-based → 0-based 변환을 확인한다.
+3. 결정론적 보기 재배열을 CSV와 HTML JSON에 동일 적용한다.
+4. Quick 52 / Focus 208 / 교집합 0 검증.
+5. Mock 20의 Focus-only / 영역 / 개념 검증.
+6. JS에서 중복 함수명 0 검증.
+7. `node --check`로 세 앱 구문검사.
+8. Chromium에서 PHONE/PC/INTRANET 학습 흐름 회귀시험.
+9. INTRANET 비회색 색상·외부 URL·스크롤을 별도 검사.
+10. 실제 Galaxy와 사내 PC에서 최종 1회 확인 후 배포한다.
