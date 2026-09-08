@@ -38,3 +38,4 @@ jobs:
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git commit -m 'Release RC4 v0.24.1: restore intranet host colors'
           git push origin HEAD:main
+# retry after exact output-hash repair
