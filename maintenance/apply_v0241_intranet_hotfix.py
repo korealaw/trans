@@ -12,6 +12,7 @@ for name in FILES:
  s=raw.decode('utf-8').replace('RC4 v0.24','RC4 v0.24.1')
  if name=='03_INTRANET_PC.html':
   s=s.replace('RC4 v0.24.1.1 - INTRANET','RC4 v0.24.1 - INTRANET')
+  s=s.replace('/* RC4 v0.24.1 - INTRANET: office-program visual parity, grayscale only */','/* RC4 v0.24.1 - INTRANET: full-color legacy host frame + neutral execution panel */',1)
   old='body{padding:14px;background:#b2b2b2}'
   if old not in s:raise SystemExit('desktop host background baseline missing')
   s=s.replace(old,'body{padding:14px;background:#8fb9d5}',1)
