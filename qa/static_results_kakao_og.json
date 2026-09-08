@@ -1,0 +1,26 @@
+{
+  "result": "PASS",
+  "public_app_name": "새마을금고 학습",
+  "kakao_og": "EXPLICIT",
+  "files": [
+    {
+      "file": "index.html",
+      "git_blob_sha": "538c70e0fe4bb6f9f6c53e95b18ce17b30240229",
+      "og_url": "https://korealaw.github.io/trans/"
+    },
+    {
+      "file": "01_PHONE.html",
+      "git_blob_sha": "e55051e2c903c68ca60b7bf14df350f35e8b86b7",
+      "og_url": "https://korealaw.github.io/trans/01_PHONE.html"
+    },
+    {
+      "file": "02_PERSONAL_PC.html",
+      "git_blob_sha": "f0d6520175f709c42f3eee063dd64c0d7e2862cd",
+      "og_url": "https://korealaw.github.io/trans/02_PERSONAL_PC.html"
+    }
+  ],
+  "intranet": {
+    "git_blob_sha": "9042cffb25e5d84de29c1cbf0f86cd3c29a15b7b",
+    "status": "UNCHANGED"
+  }
+}
