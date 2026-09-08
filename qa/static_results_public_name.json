@@ -1,0 +1,29 @@
+{
+  "result": "PASS",
+  "public_app_name": "새마을금고 학습",
+  "public_version": "RC4 v0.24.2",
+  "files": [
+    {
+      "file": "01_PHONE.html",
+      "replacements": 7,
+      "git_blob_sha": "06821f05ee482bf5b653eef3c5e0bddc45130f92"
+    },
+    {
+      "file": "02_PERSONAL_PC.html",
+      "replacements": 7,
+      "git_blob_sha": "7fc131d8a29dffd35959489e0c783e08595443e1"
+    },
+    {
+      "file": "index.html",
+      "replacements": 2,
+      "git_blob_sha": "f1a82149e587caafc82f8d06e3b1af2c6fc0636e"
+    }
+  ],
+  "intranet": {
+    "version": "RC4 v0.24.1",
+    "git_blob_sha": "9042cffb25e5d84de29c1cbf0f86cd3c29a15b7b",
+    "status": "UNCHANGED"
+  },
+  "storage_schema": "UNCHANGED",
+  "question_data": "UNCHANGED"
+}
