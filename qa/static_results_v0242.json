@@ -1,0 +1,19 @@
+{
+  "result": "PASS",
+  "version": "RC4 v0.24.2",
+  "public_app_name": "오다영과장 공부하기",
+  "public_files": [
+    {
+      "file": "01_PHONE.html",
+      "git_blob_sha": "7eb064417f9bc6ae1777aba968e2c12c3eee5439"
+    },
+    {
+      "file": "02_PERSONAL_PC.html",
+      "git_blob_sha": "e192490725bf607773546a6c42b7cb59b6f6d681"
+    }
+  ],
+  "intranet": {
+    "git_blob_sha": "9042cffb25e5d84de29c1cbf0f86cd3c29a15b7b",
+    "status": "UNCHANGED_RC4_V0241"
+  }
+}
