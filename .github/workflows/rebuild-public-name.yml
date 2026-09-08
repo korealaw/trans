@@ -1,0 +1,32 @@
+name: Apply public app name correction
+on:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/rebuild-public-name.yml']
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: main
+          fetch-depth: 1
+      - name: Apply verified public name correction
+        run: |
+          set -euo pipefail
+          python3 maintenance/apply_public_name_saemaeul.py
+      - name: Commit corrected public files
+        run: |
+          set -euo pipefail
+          git add -- 01_PHONE.html 02_PERSONAL_PC.html index.html qa/static_results_public_name.json
+          if git diff --cached --quiet; then
+            echo 'No changes needed.'
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'Rename public web app to 새마을금고 학습'
+          git push origin HEAD:main
