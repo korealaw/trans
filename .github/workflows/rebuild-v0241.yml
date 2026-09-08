@@ -1,0 +1,40 @@
+name: Rebuild tested RC4 v0.24.1
+on:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/rebuild-v0241.yml']
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: rebuild-v0241
+  cancel-in-progress: false
+jobs:
+  rebuild:
+    if: github.repository == 'korealaw/trans' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: main
+          fetch-depth: 1
+      - name: Apply exact tested hotfix
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 maintenance/apply_v0241_intranet_hotfix.py
+          python3 qa/verify_release_v0241.py
+      - name: Commit verified release files
+        shell: bash
+        run: |
+          set -euo pipefail
+          git add -- 01_PHONE.html 02_PERSONAL_PC.html 03_INTRANET_PC.html qa/static_results_v0241.json
+          if git diff --cached --quiet; then
+            echo 'No changes needed.'
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'Release RC4 v0.24.1: restore intranet host colors'
+          git push origin HEAD:main
