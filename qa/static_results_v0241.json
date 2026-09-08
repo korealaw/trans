@@ -1,0 +1,83 @@
+{
+  "result": "PASS",
+  "version": "RC4 v0.24.1",
+  "files": [
+    {
+      "file": "01_PHONE.html",
+      "git_blob_sha": "de28e913e9f76daa1723784899e8a5fa6d6104e2",
+      "bytes": 470195,
+      "syntax": "PASS",
+      "duplicate_functions": 0,
+      "active_csv_match": 260,
+      "external_runtime_network_calls": 0
+    },
+    {
+      "file": "02_PERSONAL_PC.html",
+      "git_blob_sha": "0d5c73cf2c15f0a646bff2c662cd09134c24a2b8",
+      "bytes": 463141,
+      "syntax": "PASS",
+      "duplicate_functions": 0,
+      "active_csv_match": 260,
+      "external_runtime_network_calls": 0
+    },
+    {
+      "file": "03_INTRANET_PC.html",
+      "git_blob_sha": "9042cffb25e5d84de29c1cbf0f86cd3c29a15b7b",
+      "bytes": 793645,
+      "syntax": "PASS",
+      "duplicate_functions": 0,
+      "active_csv_match": 260,
+      "external_runtime_network_calls": 0
+    }
+  ],
+  "active": 260,
+  "quick": 52,
+  "focus": 208,
+  "master_including_reserve": 300,
+  "reserve_subset": 40,
+  "concepts": 58,
+  "single_question_concepts": [
+    "ACC-01",
+    "ACC-07",
+    "ACC-08",
+    "ACC-12",
+    "BUS-02",
+    "BUS-05",
+    "CEN-04",
+    "EXIT-02",
+    "FND-03",
+    "GOV-04",
+    "INV-03",
+    "EXIT-01",
+    "EXIT-03"
+  ],
+  "focus_only_concepts": [
+    "ACC-01",
+    "ACC-07",
+    "ACC-08",
+    "ACC-12",
+    "BUS-02",
+    "BUS-05",
+    "CEN-04",
+    "EXIT-02",
+    "FND-03",
+    "GOV-04",
+    "INV-03",
+    "FND-01",
+    "GOV-02",
+    "HR-02",
+    "EXIT-01",
+    "EXIT-03",
+    "PRU-03",
+    "ACC-03",
+    "ACC-05",
+    "ACC-10",
+    "ACC-11"
+  ],
+  "intranet_color_boundary": {
+    "legacy_background_sha256": "3bea84654e733a6b45a887e139cd8f528eff90e11b1d237bb8897dfaf020e097",
+    "global_grayscale_filter": "ABSENT",
+    "execution_panel": "NEUTRAL_GRAYSCALE_CSS"
+  },
+  "legal_currency": "NOT_REVALIDATED; data alignment is not substantive legal validation"
+}
